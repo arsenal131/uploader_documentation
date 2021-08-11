@@ -1,0 +1,11 @@
+<img src="[manual_html_338cf260bb178558] (imported)" width="617" height="901" border="0" usemap="#map" />
+
+<map name="map">
+<!-- #$-:Image map file created by GIMP Image Map plug-in -->
+<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.3 -->
+<!-- #$AUTHOR:bisnis -->
+<area shape="rect" coords="187,377,615,419" alt="async resume_previous_process( path )" href="async_resume_previous_process.html" />
+<area shape="rect" coords="224,618,577,659" alt="async promise_all_files( path,  recorded_last_upload = 0 )" href="async_promise_all_files.html" />
+</map>

@@ -1,0 +1,47 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async function handling_content()</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async function handling_content()</h3>
+<img src="image/manual_html_8c47d29ed88deb38.png" name="async_function_handling_content" alt="async function handling_content()" width="814" height="405" border="1" usemap="#map" />
+<map name="map">
+  <a title="async function content_handler()">
+    <area shape="rect" coords="4,87,381,129" alt="async function content_handler()" href="async_content_handler.html" />
+  </a>
+</map>
+<h4>Code</h4>
+<pre>
+async function handling_content(){
+
+  var ch_promise =  await bb.content_handler()
+        .then( 
+          async ( resolved )=>{ return resolved }, 
+          async ( rejected )=>{ return rejected } 
+        ) 
+      
+  echo("ret_switcher: ", !!ret_switcher);
+  
+  let crs = await ch_promise.received( ret_switcher );
+  
+  return crs;
+  
+}
+</pre>
+
+<h4>Refers to:</h4>
+<ol>
+  <li><p style="margin-bottom: 0in; line-height: 100%"><a href="async_content_handler.html" title="async content_handler()">async content_handler()</a></p>
+</ol>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async goto_login_page( page, target_url )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async goto_login_page( page, target_url )</h3>
+<h4>Flowchart</h4>
+
+<figure style="align: center;">
+  <img 
+    src="image/async_goto_login_page.png" 
+    name="async_goto_login_page" 
+    alt="async goto_login_page( page, target_url )" 
+    width="841"
+    height="1089" 
+    border="1" 
+    usemap="#map" 
+    style="display:block; margin: 0 auto 0 auto;"
+  />
+</figure>
+
+<map name="map">
+  <a title="async goto_uri( page, url )">
+    <area 
+      shape="rect" 
+      coords="233,317,542,360" 
+      alt="async goto_uri( page, url )" 
+      href="async_goto_uri.html" 
+    />
+  </a>
+</map>
+
+<h4>Code</h4>
+<pre>
+  async goto_login_page( page, target_url ){
+
+    // go to login page
+    echo( "goto_login_page starts" ); 
+    
+    let ret_gtp = false;
+    
+    let n_try = 1;
+    
+    do{
+    
+      echo( `attempt #${n_try}` );
+      
+      ret_gtp = await this.goto_uri( page, target_url );
+      
+      await page.waitForTimeout(1000);
+      
+      n_try++
+        
+    }while( !ret_gtp );
+      
+    echo( "ret_gtp: ", !!ret_gtp );
+      
+    try{
+      
+      echo( "waiting for navigation" );
+      
+      await navigationPromise;
+      
+    } catch {
+      
+      echo( "ignoring waitForNavigation timeout and keep continue" );
+      
+    }
+      
+    await page.setViewport( { width:1500, height: 800 } );
+    
+    return page;
+  
+  }
+</pre>
+
+<h4>Refers to:</h4>
+<ol>
+	<li><p style="margin-bottom: 0in; line-height: 100%"><a href="async_goto_uri.html" title="async goto_uri( page, url )">async goto_uri( page, url )</a></p>
+</ol>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>this.main = async function( source_path )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">this.main = async function( source_path )</h3>
+<h4>Flowchart</h4>
+  <figure style="align:center;">
+    <img 
+      src="image/this.main.png" 
+      name="this.main.png" 
+      width="941" 
+      height="1667" 
+      border="1" 
+      usemap="#map" 
+      style="display:block; margin: 0 auto 0 auto; padding: 20px 0 20px 0;"
+    />
+  </figure>
+  
+<map name="map">
+  <a title="async clear_sys( path )">
+    <area shape="rect" coords="134,542,509,585" alt="async clear_sys( path )" href="async_clear_sys.html" />
+  </a>
+  <a title="async work_status()">
+    <area shape="rect" coords="139,964,505,1006" alt="async work_status()" href="async_work_status.html" />
+  </a>
+  <a title="async set_work_status( status )">
+    <area shape="rect" coords="162,1223,482,1264" alt="async set_work_status( status )" href="async_set_work_status.html" />
+  </a>
+  <a title="async switcher( data )">
+    <area shape="rect" coords="84,1383,560,1425" alt="async switcher( data )" href="async_switcher.html" />
+  </a>
+  <a href="async function handling_content()">
+    <area shape="rect" coords="218,1543,427,1586" alt="async function handling_content()" href="async_handling_content.html" />
+  </a>
+</map>
+
+
+
+<h4>Code</h4>
+<pre>
+
+  this.main = async function ( source_path ){
+  
+    let bb = new _FUNC.bot_blog( source_path );
+    
+    echo( "source_path: ", source_path );
+    
+    var color_ret = "\x1b[33m"; //yellow
+    var color_err = "\x1b[31m"; //red
+    var color_title = "\x1b[35m"
+    path = source_path;
+    
+    echo( color_title, "\x1b[4m", "BLOGGER BOT COMMENCES MISSION", "\x1b[0m\n");
+  
+    echo( `# read work_status in ${WS_PATH}` );
+    
+    var ret_clear_sys = await bb.clear_sys( path ).then( async resolved => { return resolved } );
+  
+    echo( ret_clear_sys.return_message );
+  
+    echo( color_ret, `# ret_clear_sys: ${!!ret_clear_sys}`, "\x1b[0m" );
+  
+    if( !ret_clear_sys ){
+      echo( color_err, "# false value is not allowed", "\x1b[0m" );
+      return;
+    }
+  
+    let ret_work_status = await bb.work_status().then( (resolved)=>{ return resolved; } );
+  
+    echo( color_ret, `# ret_work_status: ${!!ret_work_status}`, "\x1b[0m" );
+
+    echo( color_ret, "# ret_work_status.res: ", ret_work_status.res, "\x1b[0m" );
+  
+    await bb.set_work_status( "on-going" );
+    
+    echo( "ret_work_status.res: ", ret_work_status.res );
+  
+    let ret_switcher = await bb.switcher( ret_work_status.res );
+  
+    echo( "ret_switcher____:", ret_switcher );
+       
+    await handling_content();
+    
+    return true;
+    
+  }
+</pre>
+
+<h4>Refers to:</h4>
+<ol>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_clear_sys.html" title="async clear_sys( path )">async clear_sys( path )</a>
+	  </p>
+	</li>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_work_status.html" title="async work_status( status )">async work_status()</a>
+	  </p>
+	</li>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_set_work_status.html" title="async set_work_status()">async set_work_status( status )</a>
+	  </p>
+	</li>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_switcher.html" title="async switcher()" >async switcher( data )</a>
+	  </p>
+	</li>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_handling_content.html" title="async handling_content()">handling_content()</a>
+	  </p>
+	</li>
+</ol>
+</body>
+</html>

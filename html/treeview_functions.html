@@ -1,0 +1,192 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>treeview : functions</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">treeview : functions</h3>
+<img src="image/treeview_functions.png" name="Image1" width="2751" height="2308" border="0" usemap="#map" />
+
+<map name="map">
+  <a title="main plot">
+    <area shape="rect" coords="429,1,527,40" alt="main plot" href="main_plot.html" />
+  </a>
+  <a title="this.main = async function( source_path )">
+    <area shape="rect" coords="454,278,743,317" alt="this.main = async function( source_path )" href="this.main.html" />
+  </a>
+  <a title="async clear_sys( path )">
+    <area shape="rect" coords="86,360,254,398" alt="async clear_sys( path )" href="async_clear_sys.html" />
+  </a>
+  <a title="async work_status()">
+    <area shape="rect" coords="276,359,429,397" alt="async work_status()" href="async_work_status.html" />
+  </a>
+  <a title="async function clear_sys_callback_handler( i, file )">
+    <area shape="rect" coords="2,456,339,493" alt="async function clear_sys_callback_handler( i, file )" href="async_function_clear_sys_callback_handler.html" />
+  </a>
+  <a title="async function set_work_status( status )">
+    <area shape="rect" coords="447,359,671,399" alt="async function set_work_status( status )" href="async_set_work_status.html" />
+  </a>
+  <a title="async switcher( data )">
+    <area shape="rect" coords="692,361,856,397" alt="async switcher( data )" href="async_switcher.html" />
+  </a>
+  <a title="async function resume_previous_process( path )">
+    <area shape="rect" coords="479,455,756,494" alt="async function resume_previous_process( path )" href="async_resume_previous_process.html" />
+  </a>
+  <a title="async promise_all_files( path, recorded_last_upload = 0 )">
+    <area shape="rect" coords="797,456,1013,494" alt="async promise_all_files( path, recorded_last_upload = 0 )" href="async_promise_all_files.html" />
+  </a>
+  <a title="async function file_paths( result_files )">
+    <area shape="rect" coords="957,528,1223,567" alt="async function file_paths( result_files )" href="async_file_paths.html" />
+  </a>
+  <a title="async function reading_files( arr_file_paths, _this )">
+    <area shape="rect" coords="595,529,935,567" alt="async function reading_files( arr_file_paths, _this )" href="async_reading_files.html" />
+  </a>
+  <a title="async_reading_files.html">
+    <area shape="rect" coords="377,529,561,567" alt="async_reading_files.html" href="async_reading_files.html" />
+  </a>
+  <a title="async function handling_content()">
+    <area shape="rect" coords="876,360,1020,398" alt="async function handling_content()" href="async_function_handling_content.html" />
+  </a>
+  <a title="async content_handler()">
+    <area shape="rect" coords="1232,456,1370,494" alt="async content_handler()" href="async_content_handler.html" />
+  </a>
+  <a title="async function prom_1( resolve, reject )">
+    <area shape="rect" coords="1262,529,1539,566" alt="async function prom_1( resolve, reject )" href="async_function_prom_1.html" />
+  </a>
+  <a title="async function obj_received( files )">
+    <area shape="rect" coords="1278,601,1522,641" alt="async function obj_received( files )" href="async_function_obj_received.html" />
+  </a>
+  <a title="async function prom_2( receive, reject )">
+    <area shape="rect" coords="1260,674,1536,714" alt="async function prom_2( receive, reject )" href="async_function_prom_2.html" />
+  </a>
+  <a title="async function prom_2_callback_handler( i, file )">
+    <area shape="rect" coords="1234,747,1564,786" alt="async function prom_2_callback_handler( i, file )" href="async_prom_2_callback_handler.html" />
+  </a>
+  <a title="async single_file( file, obj_n_to_upload )">
+    <area shape="rect" coords="1262,822,1537,859" alt="async single_file( file, obj_n_to_upload )" href="async_single_file.html" />
+  </a>
+  <a title="async handling_file( obj, length, obj_n_to_upload, type )">
+    <area shape="rect" coords="1211,895,1589,936" alt="async handling_file( obj, length, obj_n_to_upload, type )" href="async_handling_file.html" />
+  </a>
+  <a title="async function blogpost( obj, type, i = null, j = null, post_count = null )">
+    <area shape="rect" coords="750,970,1172,1007" alt="async function blogpost( obj, type, i = null, j = null, post_count = null )" href="async_blogpost.html" />
+  </a>
+  <a title="async launch_browser ( blog_post, path, first_page_id, type )">
+    <area shape="rect" coords="1196,968,1601,1006" alt="async launch_browser ( blog_post, path, first_page_id, type )" href="async_launch_browser.html" />
+  </a>
+  <a title="this.looping = async function( idx=0, length )">
+    <area shape="rect" coords="1627,969,1942,1007" alt="this.looping = async function( idx=0, length )" href="async_function_this.looping.html" />
+  </a>
+  <a title="async piramban_handler( browser, blog_post, path, first_page_id, type )">
+    <area 
+      shape="rect" 
+      coords="934,1050,1414,1087" 
+      alt="async piramban_handler( browser, blog_post, path, first_page_id, type )" 
+      href="async_piramban_handler.html" 
+    />
+  </a>
+  <a title="async single_page ( browser, page, target_url, is_clone, blog_post, path, first_page_id, type )">
+    <area 
+      shape="rect" 
+      coords="1439,1050,2053,1088" 
+      alt="async single_page ( browser, page, target_url, is_clone, blog_post, path, first_page_id, type )"
+      href="async_single_page.html" 
+    />
+  </a>
+  <a title="async goto_login_page( page, target_url )">
+    <area shape="rect" coords="1778,1129,2065,1166" alt="async goto_login_page( page, target_url )" href="async_goto_login_page.html" />
+  </a>
+  <a title="async goto_uri( page, url )">
+    <area shape="rect" coords="2099,1128,2383,1164" alt="async goto_uri( page, url )" href="async_goto_uri.html" />
+  </a>
+  <a title="async function do_while(page, idx, n_pgt, url, n)">
+    <area shape="rect" coords="2421,1127,2749,1167" alt="async function do_while(page, idx, n_pgt, url, n)" href="async_do_while.html" />
+  </a>
+  <a title="async login( page, email, pwd )">
+    <area shape="rect" coords="1778,1188,2000,1225" alt="async login( page, email, pwd )" href="async_login.html" />
+  </a>
+  <a title="async upload_image ( page, target_file, content )">
+    <area shape="rect" coords="1778,1248,2114,1288" alt="async upload_image ( page, target_file, content )" href="async_upload_image.html" />
+  </a>
+  <a title="async goto_img_uploader_page( page )">
+    <area shape="rect" coords="2158,1191,2433,1231" alt="async goto_img_uploader_page( page )" href="async_goto_img_uploader_page.html" />
+  </a>
+  <a title="async check_node_availability ( page, node_identity )">
+    <area shape="rect" coords="2160,1247,2524,1286" alt="async check_node_availability ( page, node_identity )" href="async_check_node_availability.html" />
+  </a>
+  <a title="async goto_uri( page, url )">
+    <area shape="rect" coords="1779,1310,1968,1347" alt="async goto_uri( page, url )" href="async_goto_uri.html" />
+  </a>
+  <a title="async function do_while(page, idx, n_pgt, url, n)">
+    <area shape="rect" coords="2034,1309,2365,1348" alt="async function do_while(page, idx, n_pgt, url, n)" href="async_do_while.html" />
+  </a>
+  <a title="async title( page, title )">
+    <area shape="rect" coords="1778,1369,1951,1405" alt="async title( page, title )" href="async_title.html" />
+  </a>
+  <a title="async pretty_link( page )">
+    <area shape="rect" coords="1779,1428,1959,1467" alt="async pretty_link( page )" href="async_pretty_link.html" />
+  </a>
+  <a title="random_char( length )">
+    <area 
+      shape="rect" 
+      coords="2002,1429,2170,1465" 
+      alt="random_char( length )" 
+      href="random_char.html" 
+    />
+  </a>
+  <a title="async writing_post( page, content )">
+    <area shape="rect" coords="1779,1488,2027,1527" alt="async writing_post( page, content )" href="async_writing_post.html" />
+  </a>
+  <a title="async set_author( page, author )">
+    <area shape="rect" coords="1781,1550,2011,1590" alt="async set_author( page, author )" href="async_set_author.html" />
+  </a>
+  <a title="async set_summary( page, summary )">
+    <area shape="rect" coords="1777,1607,2046,1647" alt="async set_summary( page, summary )" href="async_set_summary.html" />
+  </a>
+  <a title="async set_tag( page, tags )">
+    <area shape="rect" coords="1778,1668,1976,1707" alt="async set_tag( page, tags )" href="async_set_tag.html" />
+  </a>
+  <a title="async editor_text_area( page, content )">
+    <area shape="rect" coords="1777,1728,2052,1767" alt="async editor_text_area( page, content )" href="async_editor_text_area.html" />
+  </a>
+  <a title="async select_image( page, id_image )">
+    <area shape="rect" coords="1778,1787,2042,1827" alt="async select_image( page, id_image )" href="async_select_image.html" />
+  </a>
+  <a title="async set_publish_status ( page, status_ID )">
+    <area shape="rect" coords="1776,1849,2080,1887" alt="async set_publish_status ( page, status_ID )" href="async_set_publish_status.html" />
+  </a>
+  <a title="async set_category ( page, category_id )">
+    <area shape="rect" coords="1778,1910,2062,1946" alt="async set_category ( page, category_id )" href="async_set_category.html" />
+  </a>
+  <a title="async set_first_page_id ( page, first_page_id )">
+    <area shape="rect" coords="1777,1969,2093,2006" alt="async set_first_page_id ( page, first_page_id )" href="async_set_first_page_id.html" />
+  </a>
+  <a title="alt="async save_first_page_id( page, path )">
+    <area shape="rect" coords="1779,2029,2047,2066" alt="async save_first_page_id( page, path )" href="async_save_first_page_id.html" />
+  </a>
+  <a title="async file_page_id( page, path, first_page_id )">
+    <area shape="rect" coords="1777,2088,2094,2126" alt="async file_page_id( page, path, first_page_id )" href="async_file_page_id.html" />
+  </a>
+  <a title="async click_save_button( page )">
+    <area shape="rect" coords="1777,2150,2003,2187" alt="async click_save_button( page )" href="async_click_save_button.html" />
+  </a>
+  <a title="async save_pretty_link( page, pretty_link )">
+    <area shape="rect" coords="1777,2209,2069,2249" alt="async save_pretty_link( page, pretty_link )" href="async_save_pretty_link.html" />
+  </a>
+  <a title="async is_published( page, current_page_id, pretty_link )">
+    <area shape="rect" coords="1778,2268,2156,2306" alt="async is_published( page, current_page_id, pretty_link )" href="async_is_published.html" />
+  </a>
+</map>
+
+
+</body>
+</html>

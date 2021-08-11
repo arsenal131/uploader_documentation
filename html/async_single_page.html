@@ -1,0 +1,386 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title></title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async single_page ( browser, page, target_url, is_clone, blog_post, path, first_page_id, type )</h3>
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_single_page.png" 
+    name="async_single_page" 
+    alt="async single_page" 
+    width="1315" 
+    height="4820" 
+    border="1" 
+    usemap="#map" 
+    style="display:block; margin: 0 auto 0 auto;"
+  />
+</figure>
+
+
+<map name="map">
+  <a title="async goto_login_page( page, target_url )">
+    <area shape="rect" coords="391,1022,765,1064" alt="async goto_login_page( page, target_url )" href="async_goto_login_page.html" />
+  </a>
+  <a title="async login( page, email, pwd )">
+    <area shape="rect" coords="292,1103,864,1145" alt="async login( page, email, pwd )" href="async_login.html" />
+  </a>
+  <a title="async upload_image ( page, target_file, content )">
+    <area shape="rect" coords="104,1447,375,1503" alt="async upload_image ( page, target_file, content )" href="async_upload_image.html" />
+  </a>
+  <a title="async goto_uri( page, url )">
+    <area shape="rect" coords="52,1772,427,1814" alt="async goto_uri( page, url )" href="async_goto_uri.html" />
+  </a>
+  <a title="async title( page, title )">
+    <area shape="rect" coords="541,1969,768,2012" alt="async title( page, title )" href="async_title.html" />
+  </a>
+  <a title="async pretty_link( page )">
+    <area shape="rect" coords="535,2047,774,2089" alt="async pretty_link( page )" href="async_pretty_link.html" />
+  </a>
+  <a title="async writing_post( page, content )">
+    <area shape="rect" coords="490,2207,815,2249" alt="async writing_post( page, content )" href="async_writing_post.html" />
+  </a>
+  <a title="set_author( page, author )">
+    <area shape="rect" coords="502,2285,804,2328" alt="async set_author( page, author )" href="async_set_author.html" />
+  </a>
+  <a title="async set_summary( page, summary )">
+    <area shape="rect" coords="479,2364,827,2406" alt="async set_summary( page, summary )" href="async_set_summary.html" />
+  </a>
+  <a title="async set_tag( page, tags )">
+    <area shape="rect" coords="524,2435,782,2478" alt="async set_tag( page, tags )" href="async_set_tag.html" />
+  </a>
+  <a title="async editor_text_area( page, content )">
+    <area shape="rect" coords="473,2513,831,2556" alt="async editor_text_area( page, content )" href="async_editor_text_area.html" />
+  </a>
+  <a title="async select_image( page, id_image )">
+    <area shape="rect" coords="154,2624,496,2666" alt="async select_image( page, id_image )" href="async_select_image.html" />
+  </a>
+  <a title="async set_publish_status ( page, status_ID )">
+    <area shape="rect" coords="492,2722,814,2765" alt="async set_publish_status ( page, status_ID )" href="async_set_publish_status.html" />
+  </a>
+  <a title="async set_category ( page, category_id )">
+    <area shape="rect" coords="513,2804,792,2846" alt="async set_category ( page, category_id )" href="async_set_category.html" />
+  </a>
+  <a title="async set_first_page_id ( page, first_page_id )">
+    <area shape="rect" coords="453,2886,853,2929" alt="async set_first_page_id ( page, first_page_id )" href="async_set_first_page_id.html" />
+  </a>
+  <a title="async save_first_page_id( page, path )">
+    <area shape="rect" coords="478,2964,827,3007" alt="async save_first_page_id( page, path )" href="async_save_first_page_id.html" />
+  </a>
+  <a title="async file_page_id( page, path, first_page_id )">
+    <area shape="rect" coords="449,3043,858,3087" alt="async file_page_id( page, path, first_page_id )" href="async_file_page_id.html" />
+  </a>
+  <a title="async click_save_button( page )">
+    <area shape="rect" coords="505,3275,801,3318" alt="async click_save_button( page )" href="async_click_save_button.html" />
+  </a>
+  <a title="async save_pretty_link( page, pretty_link )">
+    <area shape="rect" coords="448,3354,858,3397" alt="async save_pretty_link( page, pretty_link )" href="async_save_pretty_link.html" />
+  </a>
+  <a title="async is_published( page, current_page_id, pretty_link )">
+    <area shape="rect" coords="469,3432,835,3489" alt="async is_published( page, current_page_id, pretty_link )" href="async_is_published.html" />
+  </a>
+</map>
+
+<h4>Code</h4>
+<pre>
+  async single_page ( browser, page, target_url, is_clone, blog_post, path, first_page_id, type ){
+      
+    echo( "single_page starts" );
+    //console.log( "this: ", this );
+    
+    var title 		= blog_post.title;
+    var content 	= blog_post.content;
+    var author 		= blog_post.author;
+    var summary 	= blog_post.summary;
+    var tags 		= blog_post.tags;
+    var url		= null;
+    var current_page_id	= "";
+    var id_image 	= null;
+    var obja            = null;
+
+    const navigationPromise = page.waitForNavigation( {
+      waitUntil: 'domcontentloaded'
+    } );
+
+    var filepath 		= "/home/bisnis/node/" + path + "/first_page_id";
+    var reading_file 	        = await this.read_file( filepath ).then( ( resolved )=>{ return resolved }, ( rejected )=>{ return rejected; } );
+
+    if( !!reading_file ){
+      echo( "reading_file first page id: ", reading_file );
+    } else if( !reading_file ){
+      echo( "reading_file first page id: ", reading_file );
+      echo( "first page id is empty ..." );
+      reading_file = false;
+    }
+
+    echo( "\nLOGIN PROCEDURE STARTS\n" );
+
+    await this.goto_login_page( page, target_url );
+    
+    await this.login( page, "andreastjandra@implantgigi.com", "123456" );
+
+    if( type == "text" || type == "table" ){
+    
+      var target_file 	        = blog_post.target;
+      
+
+    } else if( type == "image" ){
+ 
+      var target_file 	        = blog_post.img_src;
+      var img_src 		= blog_post.img_src;
+      var img_caption 		= blog_post.img_caption;
+
+      id_image = await this.upload_image( page, target_file, img_caption );
+      
+      echo( "id_image: ", id_image );
+      
+      await page.waitForTimeout( 3000 );
+      
+      echo( `go to blog post editor` );
+
+      await this.goto_uri( page, URI_POST_EDITOR );
+
+    } else {
+    
+      obja = {
+        "type"          : type,
+        "pretty_link"	: ret_pretty_link,
+        "published"	: false,
+        "draft"		: false
+      }
+      return obja;
+    
+    }
+    
+    echo( "creating post starts" );
+
+    await this.title( page, title );
+
+    let ret_pretty_link = await this.pretty_link( page );
+      
+    echo( "ret_pretty_link: ", ret_pretty_link );
+    
+    await this.writing_post( page, content );
+
+    await this.set_author( page, author );
+    
+    await this.set_summary( page, summary );
+    
+    await this.set_tag( page, tags );
+    
+    await this.editor_text_area( page, content );
+    
+    if( type == "image" ){
+    
+      await this.select_image( page, id_image );
+      
+    }
+    
+    await this.set_publish_status( page, 2 ); // 2 : publish
+    
+    await this.set_category( page, 1 ); // 1 : journal
+    
+    await this.set_first_page_id( page, first_page_id );
+    
+    await this.save_first_page_id( page, path );
+
+    let ret_current_page_id = await this.file_page_id( page, path, first_page_id );
+      
+    echo( "current_page_id: ", ret_current_page_id );
+    
+    await page.waitForTimeout( 3000 );
+
+    await this.click_save_button( page );
+      
+    await this.save_pretty_link( page, ret_pretty_link );
+
+    let ip = await this.is_published( page, ret_current_page_id, ret_pretty_link );
+      
+    if( !!ip ){
+      echo( `${ip} published` );
+      await page.waitForTimeout( 2000 );
+      obja = {
+        "type"          : type,
+        "pretty_link"	: ret_pretty_link,
+        "published"	: true,
+        "draft"		: false
+      }
+      return obja;
+    } else {
+      echo( `${ip} is not published yet` );
+      echo( "I am going to confirm if it exists in the draft box" );
+        
+      //go to draft box and try to publish it
+      let draftbox_url = "https://palmerah.implantgigi.com/insight/edit/list/1";
+      echo( "draftbox_url: ", draftbox_url );
+        
+      echo( `go to ${draftbox_url}` );
+      await page.goto( draftbox_url, {waitUntil:'domcontentloaded'} );
+  
+      //let elm = `tr#record_${ current_page_id }`;
+      let elm = `tr#record_${ ret_current_page_id }`;
+        
+      echo( `searching for element ${elm}` );
+      let is_elm = await page.$$( elm );
+
+      echo( `The element exist: ${ !!is_elm }` );
+        
+      if( !!is_elm ){
+        echo( `I confirmed that ${elm} is still in draft box` );
+        obja = {
+          "type"        : type,
+          "pretty_link"	: ret_pretty_link,
+          "published"	: false,
+          "draft"	: true
+        }
+      } else if( !is_elm ){
+        console.log( `${elm} does not exist in draft box. Where does it go?` );
+        obja = {
+          "type"        : type,
+          "pretty_link"	: ret_pretty_link,
+          "published"	: false,
+          "draft"	: false
+        }
+      }
+      
+      return obja;
+        
+    }
+
+  }
+</pre>
+
+<h4>Refers to:</h4>
+<ol>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_goto_login_page.html" title="async goto_login_page( page, target_url )">
+	      async goto_login_page( page, target_url )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_login.html" title="async login( page, email, pwd )">
+	      async login( page, email, pwd )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%"><a href="async_upload_image.html" title="async upload_image ( page, target_file, content )">
+	    async upload_image ( page, target_file, content )</a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_goto_uri.html" title="async goto_uri( page, url )">
+	      async goto_uri( page, url )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_title.html" title="async title( page, title )">
+	      async title( page, title )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_pretty_link.html" title="async pretty_link( page )">
+	      async pretty_link( page )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_writing_post.html" title="async writing_post( page, content )">
+	      async writing_post( page, content )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_set_author.html" title="async set_author( page, author )">
+	      async set_author( page, author )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_set_summary.html" title="async set_summary( page, summary )">
+	      async set_summary( page, summary )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_set_tag.html" title="async set_tag( page, tags )">
+	      async set_tag( page, tags )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_editor_text_area.html" title="async editor_text_area( page, content )">
+	      async editor_text_area( page, content )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_select_image.html" title="async select_image( page, id_image )">
+	      async select_image( page, id_image )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_set_publish_status.html" title="async set_publish_status ( page, status_ID )">
+	      async set_publish_status ( page, status_ID )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_set_category.html" title="async set_category ( page, category_id )">
+	      async set_category ( page, category_id )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_set_first_page_id.html" title="async set_first_page_id ( page, first_page_id )">
+	      async set_first_page_id ( page, first_page_id )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_save_first_page_id.html" title="async save_first_page_id( page, path )">
+	      async save_first_page_id( page, path )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_file_page_id.html" title="async file_page_id( page, path, first_page_id )">
+	      async file_page_id( page, path, first_page_id )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_click_save_button.html" title="async click_save_button( page )">
+	      async click_save_button( page )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_save_pretty_link.html" title="async save_pretty_link( page, pretty_link )">
+	      async save_pretty_link( page, pretty_link )
+	    </a>
+	  </p>
+	<li>
+	  <p style="margin-bottom: 0in; line-height: 100%">
+	    <a href="async_is_published.html" title="async is_published( page, current_page_id, pretty_link )">
+	      async is_published( page, current_page_id, pretty_link )
+	    </a>
+	  </p>
+</ol>
+</body>
+</html>

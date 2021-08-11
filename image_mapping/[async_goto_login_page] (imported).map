@@ -1,0 +1,10 @@
+<img src="[async_goto_login_page] (imported)" width="841" height="1089" border="0" usemap="#map" />
+
+<map name="map">
+<!-- #$-:Image map file created by GIMP Image Map plug-in -->
+<!-- #$-:GIMP Image Map plug-in by Maurits Rijk -->
+<!-- #$-:Please do not edit lines starting with "#$" -->
+<!-- #$VERSION:2.3 -->
+<!-- #$AUTHOR:bisnis -->
+<area shape="rect" coords="233,317,542,360" alt="async goto_uri( page, url )" href="async_goto_uri.html" />
+</map>
