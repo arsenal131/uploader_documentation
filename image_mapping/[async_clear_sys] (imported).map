@@ -1,4 +1,4 @@
-<img src="[async_clear_sys] (imported)" width="480" height="858" border="0" usemap="#map" />
+<img src="[async_clear_sys] (imported)" width="998" height="1087" border="0" usemap="#map" />
 
 <map name="map">
 <!-- #$-:Image map file created by GIMP Image Map plug-in -->
@@ -6,5 +6,5 @@
 <!-- #$-:Please do not edit lines starting with "#$" -->
 <!-- #$VERSION:2.3 -->
 <!-- #$AUTHOR:bisnis -->
-<area shape="rect" coords="90,574,407,616" alt="async function clear_sys_callback_handler( i, file )" href="async_function_clear_sys_callback_handler.html" />
+<area shape="rect" coords="152,403,340,444" alt="Array.prototype.loop = async function( i = 0, callback )" href="array.prototype.loop.html" />
 </map>
