@@ -14,21 +14,77 @@
 </head>
 <body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
 <h3 class="western" style="page-break-before: always">async switcher( data )</h3>
-<img src="image/manual_html_338cf260bb178558.png" name="Image9" width="617" height="901" border="1" usemap="#map" />
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_switcher.png" 
+    name="async_switcher" 
+    alt="async switcher( data )"
+    width="617" 
+    height="901" 
+    border="1" 
+    usemap="#map" 
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
 
 <map name="map">
-  <a title="async resume_previous_process( path )">
-    <area shape="rect" coords="187,377,615,419" alt="async resume_previous_process( path )" href="async_resume_previous_process.html" />
+  <a title="async resumePreviousProcess( path )">
+    <area 
+      shape="rect"
+      coords="238,397,637,440"
+      alt="async resumePreviousProcess( path )" 
+      href="async_resumePreviousProcess.html" 
+    />
   </a>
-  <a title="async promise_all_files( path,  recorded_last_upload = 0)">
-    <area shape="rect" coords="223,617,577,660" alt="async promise_all_files( path,  recorded_last_upload = 0)" href="async_promise_all_files.html" />
+  <a title="async promiseAllFiles( path,  recordedLastUpload = 0)">
+    <area
+      shape="rect"
+      coords="223,617,577,660" 
+      alt="async promiseAllFiles( path,  recordedLastUpload = 0)" 
+      href="async_promiseAllFiles.html"
+    />
   </a>
 </map>
 
-<p style="margin-bottom: 0in; line-height: 100%">Refers to:</p>
+<h4>Code</h4>
+<pre>
+  async switcher( data ){
+  
+    var ret = false;
+  
+    switch( data ){
+      case "on-going":
+        echo( "# resume previous process" );
+        ret = await this.resume_previous_process( path );
+        return ret;
+        break;
+      case "finish":
+        echo( "# previous process finished, start new process" );
+        ret = await this.promise_all_files( path );
+        return ret;
+        break;
+      default:
+        echo( "# unknown work status" );
+        return ret;
+        break;
+    }
+
+  }
+</pre>
+
+<h4>Refers to:</h4>
 <ol>
-	<li><p style="margin-bottom: 0in; line-height: 100%"><a href="async_resume_previous_process.html" title="async resume_previous_process( path )">async resume_previous_process( path )</a></p>
-	<li><p style="margin-bottom: 0in; line-height: 100%"><a href="async_promise_all_files.html" title="async promise_all_files( path, recorded_last_upload = 0 )">async promise_all_files( path )</a></p>
+	<li>
+	    <a href="async_resume_previous_process.html" title="async resume_previous_process( path )">
+	      async resumePrevious_process( path )
+	    </a>
+	</li>
+	<li>
+	    <a href="async_promise_all_files.html" title="async promise_all_files( path, recorded_last_upload = 0 )">
+	      async promiseAllFiles( path )
+	    </a>
+	</li>
 </ol>
 </body>
 </html>

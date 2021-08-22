@@ -57,7 +57,7 @@
               return true;
             }
           } );
-          echo( "file writing status of first: ," ret_write_file_first );
+          echo( "file writing status of first: ", ret_write_file_first );
           echo( "save current page id to file current_page_id" );
           current_page_id = first_page_id;
           ret_write_file_current = await _FS.writeFile( path + "/current_page_id", current_page_id, async function( err ){

@@ -14,7 +14,21 @@
 </head>
 <body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
 <h3 class="western" style="page-break-before: always">async function resume_previous_process( path )</h3>
-<img src="image/manual_html_f440e09848aec4d4.png" name="Image10" width="863" height="1982" border="0" usemap="#map" />
+<h4>Flowchart</h4>
+
+<figure style="align:center;">
+  <img 
+    src="image/async_resume_previous_process.png" 
+    name="Image10" 
+    alt="async function resume_previous_process( path )"
+    width="863" 
+    height="1982" 
+    border="1" 
+    usemap="#map" 
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px;"
+  />
+</figure>
+
 <map name="map">
   <a title="async read_file( filepath )">
     <area shape="rect" coords="43,307,477,350" alt="async read_file( filepath )" href="async_read_file.html" />
@@ -29,7 +43,49 @@
     <area shape="rect" coords="353,1468,637,1511" alt="async promise_all_files( path, recorded_last_upload = 0 )" href="async_promise_all_files.html" />
   </a>
 </map>
-<p style="margin-bottom: 0in; line-height: 100%">Refers to:</p>
+
+<h4>Code</h4>
+<pre>
+  async resume_previous_process( path ){
+  
+    echo( "# resume_previous_process starts" );
+    
+    var arrs_resolved, last_upload = null;
+    
+    try{
+    
+      const log_upload = await this.read_file( PATH_UPLOADED );
+     
+      if( !!log_upload ){
+        arrs_resolved = log_upload.split( "\n" );
+        last_upload = JSON.parse( arrs_resolved.filter( n => n ).reverse( )[0] );
+        echo( "# last_upload: ", last_upload.length );
+        
+        try{
+          echo( `# recorded last_upload: ${last_upload.last_record}` );
+          const pafl= await this.promise_all_files( path, last_upload.last_record );
+          return pafl;
+        } catch {
+          echo( "# last_upload file is empty" );
+          const pafs = await this.promise_all_files( path );
+          return pafs;
+        }
+      
+      } else if( !log_upload ){
+        echo( `# empty file at ${ PATH_UPLOADED }` );
+        echo( "# promise_all_files start from 0" );
+        const praf = await this.promise_all_files( path );
+        return praf;
+      }
+    } catch{
+      echo( `# file not found. ` );
+      echo( `# error at resume_previous_process method` )
+    }
+    
+  }
+</pre>
+
+<h4>Refers to:</h4>
 <ol>
 	<li><p style="margin-bottom: 0in; line-height: 100%"><a href="async_read_file.html" title="async read_file( filepath )">async read_file( filepath )</a></p>
 	<li><p style="margin-bottom: 0in; line-height: 100%"><a href="async_promise_all_files.html" title="async promise_all_files( path, recorded_last_upload = 0 )">async promise_all_files( path, recorded_last_upload = 0 )</a></p>
