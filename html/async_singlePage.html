@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async singlePage ( browser, page, targetUrl, isClone, objBlogPost, path, firstPageId, type )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async singlePage ( browser, page, targetUrl, isClone, objBlogPost, path, firstPageId, type )</h3>
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_singlePage.png" 
+    name="async_singlePage" 
+    alt="async singlePage( browser, page, targetUrl, isClone, objBlogPost, path, firstPageId, type )" 
+    border="1" 
+    usemap="#map" 
+    style="display:block; margin: 0 auto 0 auto;"
+  />
+</figure>
+
+
+<map name="map">
+  <a title="async goToLogInPage( page, targetUrl )">
+    <area 
+      shape="rect" 
+      coords="540,1103,911,1145" 
+      alt="async goToLogInPage( page, targetUrl )" 
+      href="async_goToLogInPage.html" 
+    />
+  </a>
+  <a title="async logIn( page, email, pwd )">
+    <area 
+      shape="rect" 
+      coords="440,1183,1010,1227"
+      alt="async logIn( page, email, pwd )" 
+      href="async_logIn.html" 
+    />
+  </a>
+  <a title="async upload_image ( page, target_file, content )">
+    <area shape="rect" coords="104,1447,375,1503" alt="async upload_image ( page, target_file, content )" href="async_upload_image.html" />
+  </a>
+  <a title="async goto_uri( page, url )">
+    <area shape="rect" coords="52,1772,427,1814" alt="async goto_uri( page, url )" href="async_goto_uri.html" />
+  </a>
+  <a title="async title( page, title )">
+    <area shape="rect" coords="541,1969,768,2012" alt="async title( page, title )" href="async_title.html" />
+  </a>
+  <a title="async pretty_link( page )">
+    <area shape="rect" coords="535,2047,774,2089" alt="async pretty_link( page )" href="async_pretty_link.html" />
+  </a>
+  <a title="async writing_post( page, content )">
+    <area shape="rect" coords="490,2207,815,2249" alt="async writing_post( page, content )" href="async_writing_post.html" />
+  </a>
+  <a title="set_author( page, author )">
+    <area shape="rect" coords="502,2285,804,2328" alt="async set_author( page, author )" href="async_set_author.html" />
+  </a>
+  <a title="async set_summary( page, summary )">
+    <area shape="rect" coords="479,2364,827,2406" alt="async set_summary( page, summary )" href="async_set_summary.html" />
+  </a>
+  <a title="async set_tag( page, tags )">
+    <area shape="rect" coords="524,2435,782,2478" alt="async set_tag( page, tags )" href="async_set_tag.html" />
+  </a>
+  <a title="async editor_text_area( page, content )">
+    <area shape="rect" coords="473,2513,831,2556" alt="async editor_text_area( page, content )" href="async_editor_text_area.html" />
+  </a>
+  <a title="async select_image( page, id_image )">
+    <area shape="rect" coords="154,2624,496,2666" alt="async select_image( page, id_image )" href="async_select_image.html" />
+  </a>
+  <a title="async set_publish_status ( page, status_ID )">
+    <area shape="rect" coords="492,2722,814,2765" alt="async set_publish_status ( page, status_ID )" href="async_set_publish_status.html" />
+  </a>
+  <a title="async set_category ( page, category_id )">
+    <area shape="rect" coords="513,2804,792,2846" alt="async set_category ( page, category_id )" href="async_set_category.html" />
+  </a>
+  <a title="async set_first_page_id ( page, first_page_id )">
+    <area shape="rect" coords="453,2886,853,2929" alt="async set_first_page_id ( page, first_page_id )" href="async_set_first_page_id.html" />
+  </a>
+  <a title="async save_first_page_id( page, path )">
+    <area shape="rect" coords="478,2964,827,3007" alt="async save_first_page_id( page, path )" href="async_save_first_page_id.html" />
+  </a>
+  <a title="async file_page_id( page, path, first_page_id )">
+    <area shape="rect" coords="449,3043,858,3087" alt="async file_page_id( page, path, first_page_id )" href="async_file_page_id.html" />
+  </a>
+  <a title="async click_save_button( page )">
+    <area shape="rect" coords="505,3275,801,3318" alt="async click_save_button( page )" href="async_click_save_button.html" />
+  </a>
+  <a title="async save_pretty_link( page, pretty_link )">
+    <area shape="rect" coords="448,3354,858,3397" alt="async save_pretty_link( page, pretty_link )" href="async_save_pretty_link.html" />
+  </a>
+  <a title="async is_published( page, current_page_id, pretty_link )">
+    <area shape="rect" coords="469,3432,835,3489" alt="async is_published( page, current_page_id, pretty_link )" href="async_is_published.html" />
+  </a>
+</map>
+
+<h4>Code</h4>
+<pre></pre>
+
+<h4>Refers to:</h4>
+<ol>
+  <li>
+    <a 
+      href="async_goToLogInPage.html" 
+      title="async goToLogInPage( page, targetUrl )"
+    >
+      async goToLogInPage( page, targetUrl )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_logIn.html" 
+      title="async logIn( page, email, pwd )"
+    >
+      async logIn( page, email, pwd )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_uploadImage.html" 
+      title="async uploadImage ( page, targetFile, content )"
+    >
+      async uploadImage ( page, targetFile, content )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_goToUri.html" 
+      title="async goToUri( page, url )"
+    >
+      async goToUri( page, url )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_title.html" 
+      title="async title( page, title )"
+    >
+      async title( page, title )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_prettyLink.html" 
+      title="async prettyLink( page )"
+    >
+      async prettyLink( page )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_writingPost.html" 
+      title="async writingPost( page, content )"
+    >
+      async writingPost( page, content )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_setAuthor.html" 
+      title="async setAuthor( page, author )"
+    >
+      async setAuthor( page, author )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_setSummary.html" 
+      title="async setSummary( page, summary )"
+    >
+      async setSummary( page, summary )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_setTag.html" 
+      title="async setTag( page, tags )"
+    >
+      async setTag( page, tags )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_editorTextArea.html" 
+      title="async editorTextArea( page, content )"
+    >
+      async editorTextArea( page, content )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_selectImage.html" 
+      title="async selectImage( page, idImage )"
+    >
+      async selectImage( page, idImage )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_setPublishStatus.html" 
+      title="async setPublishStatus ( page, statusId )"
+    >
+      async setPublishStatus( page, statusId )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_setCategory.html" 
+      title="async setCategory( page, categoryId )"
+    >
+      async setCategory( page, categoryId )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_setFirstPageId.html" 
+      title="async setFirstPageId( page, firstPageId )"
+    >
+      async setFirstPageId( page, firstPageId )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_saveFirstPageId.html" 
+      title="async saveFirstPageId( page, path )"
+    >
+      async saveFirstPageId( page, path )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_filePageId.html" 
+      title="async filePageId( page, path, firstPageId )"
+    >
+      async filePageId( page, path, firstPageId )
+    </a>
+  </li>
+  <li>
+    <a href="async_clickSaveButton.html" title="async clickSaveButton( page )">
+      async clickSaveButton( page )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_savePrettyLink.html" 
+      title="async savePrettyLink( page, prettyLink )"
+    >
+      async savePrettyLink( page, prettyLink )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_isPublished.html" 
+      title="async isPublished( page, currentPageId, prettyLink )"
+    >
+      async isPublished( page, currentPageId, prettyLink )
+    </a>
+  </li>
+</ol>
+</body>
+</html>

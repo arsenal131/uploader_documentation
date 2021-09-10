@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async goToUri( page, uri )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+
+<h3 class="western" style="page-break-before: always">async goToUri( page, uri )</h3>
+
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_goToUri.png" 
+    name="async_goToUri" 
+    alt="async goToUri( page, uri )" 
+    border="1" 
+    width="414" 
+    height="484"
+    usemap="#map"
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
+
+<map name="map">
+  <a title="async function do_while(page, idx, n_pgt, url, n)">
+    <area shape="rect" coords="32,255,397,297" alt="async function do_while(page, idx, n_pgt, url, n)" href="async_do_while.html" />
+  </a>
+</map>
+
+
+<h4>Code</h4>
+<pre>
+  async goToUri( page, uri ){
+  
+    echo( `go to ${uri}` );
+
+    var idx = null;
+    var nPgt = 1;
+    
+    let dw = await this.doWhile( page, idx, nPgt, url, n );
+    
+    echo( `successfully arrive at ${url} at ${n} attempt(s)` );
+     
+    return dw;
+      
+  }
+</pre>
+
+<h4>Refers to:</h4>
+<ol>
+  <li>
+    <a href="async_doWhile.html" title="async doWhile(page, idx, nPgt, url, n)">
+      async doWhile( page, idx, nPgt, url, n )
+    </a>
+  </li>
+</ol>
+</body>
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async filePageId( page, path, firstPageId )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async filePageId( page, path, firstPageId )</h3>
+<h4>Flowchart</h4>
+
+<figure style="align:center">
+  <img 
+    src="image/async_filePageId.png" 
+    name="async_filePageId" 
+    alt="async filePageId( page, path, firstPageId )" 
+    border="1" 
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
+
+<h4>Code</h4>
+<pre>
+  async filePageId( page, path, firstPageId ){ //
+
+    echo( "filePageId starts" );
+      
+    var currentPageId, retWriteFileFirst, retWriteFileCurrent = null; //
+
+    // get first page id
+    path = _WORKING_DIRECTORY + path; //
+    
+    if( !firstPageId ){ //
+      
+      echo( "get #id_post value of first page" ); //
+      
+      do{
+        
+        echo( "trying to obtain firstPageId" ); //
+        
+        await page.waitForSelector( "#id_post", { timeout:10000 } );  //
+        
+        firstPageId = await page.$eval( "#id_post", async el => el.value ); //
+        
+        if( firstPageId > 0 ){  //
+        
+          echo( "firstPageId: " , firstPageId ); //
+          
+          echo( "save firstPageId to file" ); //
+          
+          if( !_FS.existsSync( path ) ){  //
+          
+            _FS.mkdirSync( path );  //
+            
+          }
+          
+          var retWriteFileFirst = await _FS.writeFile( 
+            path + "/firstPageId", 
+            firstPageId, 
+            async ( err )=>{
+            
+              if ( err ){
+              
+                throw err;
+                
+                return false;
+                
+              } else {
+              
+                return true;
+                
+              }
+              
+            } 
+          );
+          
+          echo( "retWriteFileFirst: ", retWriteFileFirst );
+          
+          echo( "save currentPageId to file" );
+          
+          currentPageId = firstPageId;
+          
+          retWriteFileCurrent = await _FS.writeFile( 
+            path + "/currentPageId", 
+            currentPageId, 
+            async ( err )=>{
+            
+              if ( err ){
+              
+                throw err;
+                
+                return false;
+              
+              } else {
+                
+                return true;
+              
+              }
+            
+            } 
+          ); 
+          
+          echo( "retWriteFileCurrent: ", retWriteFileCurrent );
+          
+          return currentPageId;
+            
+        }
+        
+        await page.waitForTimeout( 1000 );
+        
+      } while( !firstPageId );
+
+      return firstPageId;      
+      
+    } else {
+      
+      echo( "resave firstPageId" );
+      
+      retWriteFileFirst = await _FS.writeFile( 
+        path + "/firstPageId", 
+        firstPageId, 
+        async ( err )=>{
+          
+          if ( err ){
+            
+            echo( err );
+            
+            return false;
+          
+          } else {
+            
+            return true;
+          
+          }
+          
+        }
+        
+      );
+      
+      echo( "retWriteFileFirst: ", retWriteFileFirst );
+      
+      echo( "get #id_post value of current page" );
+      
+      await page.waitForSelector( "#id_post", { timeout:10000 } );
+      
+      currentPageId = await page.$eval( "#id_post", async el => el.value );
+      
+      echo( `currentPageId: ${currentPageId}` );
+      
+      echo( "save currentPageId to file" );
+      
+      if( currentPageId > 0 ){     //
+      
+        retWriteFileCurrent = await _FS.writeFile( 
+          path + "/currentPageId", 
+          currentPageId, 
+          async ( err )=>{
+          
+            if ( !!err ){
+              
+              throw err;
+              
+              return false;
+              
+            } else {
+              
+              return true;
+              
+            }
+            
+          } 
+        
+        );
+        
+      }
+      
+      do{
+        
+        echo( "retrying to obtain currentPageId" );
+        
+        await page.waitForSelector( "#id_post", { timeout:10000 } );
+        
+        currentPageId = await page.$eval( "#id_post", async el => el.value );
+        
+        if( currentPageId > 0 ){
+        
+          retWriteFileCurrent = await _FS.writeFile( 
+            path + "/currentPageId", 
+            currentPageId, 
+            async ( err )=>{
+              
+              if ( err ){
+              
+                echo( err );
+              
+                return false;
+              
+              } else {
+              
+                return true;
+              
+              }
+              
+            }
+            
+          );
+          
+          echo( retWriteFileCurrent );
+          
+        }
+        
+        await page.waitForTimeout( 1000 );          
+      
+      } while( !currentPageId );
+      
+      return currentPageId;
+      
+    }
+    
+  }
+</pre>
+
+</body>
+</html>

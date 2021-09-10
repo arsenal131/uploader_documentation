@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async workStatus()</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western">async workStatus()</h3>
+
+<h4>Background</h4>
+<p>Work status is important in work flow to determine if previous work flow completed or did not.
+It dictates new work flow or continuation of previous work flow.
+</p>
+
+<h4>Objectives</h4>
+<p>To read workStatus file.</p>
+
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_workStatus.png" 
+    name="async_workStatus" 
+    alt="async workStatus()" 
+    border="1" 
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;" 
+  />
+</figure>
+
+<h4>Code</h4>
+<pre>
+  async workStatus(){
+
+    /*************************+**/
+    /* To read workStatus file */
+    /**************************+*/
+  
+    const ws = _FS.promises.readFile( _WS_PATH, "utf-8" );
+    
+    this.res = await ws
+      .then( 
+        async ( resolved )=>{ return resolved }, 
+        async ( rejected )=>{
+          echo( "\n# workStatus data: not set" );
+          echo( "#rejected: ", rejected );
+          return rejected;
+        }
+      )
+      .catch( async ( error )=> {
+        if( error ){
+          echo( `\n# workStatus error: ${error}` );
+          return false;
+        }
+      } )
+      .finally( 
+        async function(){
+          echo( "# workStatus delivered" );
+        }.bind(this) 
+      )
+    
+    return this;
+    
+  }
+</pre>
+</body>
+</html>

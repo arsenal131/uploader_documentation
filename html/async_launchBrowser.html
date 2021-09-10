@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async launchBrowser ( objBlogPost, path, firstPageId, type )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async launchBrowser ( objBlogPost, path, firstPageId, type )</h3>
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_launchBrowser.png" 
+    name="async_launchBrowser.png" 
+    border="1" 
+    usemap="#map" 
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
+
+<map name="map">
+  <a title="async singlePage ( browser, page, targetUrl, isClone, objBlogPost, path, firstPageId, type )">
+    <area 
+      shape="rect"
+      coords="465,740,736,910"
+      alt="async singlePage ( browser, page, targetUrl, isClone, objBlogPost, path, firstPageId, type )"
+      href="async_singlePage.html"
+    />
+  </a>
+  <a title="async pirambanHandler( browser, objBlogPost, path, firstPageId, type )">
+    <area 
+      shape="rect" 
+      coords="1010,837,1242,910" 
+      alt="async pirambanHandler( browser, objBlogPost, path, firstPageId, type )" 
+      href="async_pirambanHandler.html" 
+    />
+  </a>
+
+  <a title="async singlePage ( browser, page, targetUrl, isClone, objBlogPost, path, firstPageId, type )">
+    <area 
+      shape="rect" 
+      coords="440,1454,741,1623" 
+      alt="async singlePage ( browser, page, targetUrl, isClone, objBlogPost, path, firstPageId, type )" 
+      href="async_singlePage.html" 
+    />
+  </a>
+  <a title="async pirambanHandler( browser, objBlogPost, path, firstPageId, type )">
+    <area 
+      shape="rect" 
+      coords="1010,1603,1242,1675"
+      alt="async pirambanHandler( browser, objBlogPost, path, firstPageId, type )"
+      href="async_pirambanHandler.html" 
+    />
+  </a>
+</map>
+
+<h4>Code</h4>
+<pre>
+  async launchBrowser ( objBlogPost, path, firstPageId, type ){
+  
+    var piramban, retSp = null;
+    
+    echo("this exists:", !!(this));
+    
+    echo( "type: ", type );
+    
+    if( type == "text" || type == "table" ){
+      //text or table handler
+      echo( "launching browser" );
+      echo( "blog_post: ", !!objBlogPost );
+      piramban = await _PUPPETEER.launch( { headless:false, args:['--start-maximized'] } )
+        .then( 
+          async ( browser ) => { 
+            let pirha = await this.pirambanHandler( browser, objBlogPost, path, firstPageId, type );
+            return pirha;
+          }, 
+          async ( err ) => {
+            echo( err );
+            return err;
+          })
+        .catch( 
+          async ( err )=>{
+            echo( err );
+            return err;
+          });
+
+      echo( "var piramban: ", !!piramban );
+
+      retSp = await this.singlePage( 
+        piramban.browser, 
+        piramban.page, 
+        piramban.targetUrl, 
+        piramban.isClone, 
+        piramban.objBlogPost, 
+        piramban.path, 
+        piramban.firstPageId,
+        piramban.type
+      );
+          
+    } else if( type=="image" ){
+     
+      //image type handler
+      
+      echo( "# launching browser" );
+      
+      echo( "# blog_post: ", objBlogPost );
+      
+      piramban = await _PUPPETEER.launch( { headless:false, args:['--start-maximized'] } )
+        .then( 
+          async ( browser ) => { 
+            echo( "PUPPETEER launched" );
+            var piraha = await this.pirambanHandler( browser, objBlogPost, path, firstPageId, type );
+            return piraha;
+          }, 
+          async ( err ) => {
+            echo( err );
+          } )
+        .catch( async ( err )=>{
+          echo( err );
+          return err;
+        } );
+
+      echo( "var piramban____: ", !!piramban );
+      
+      retSp = await this.singlePage( 
+        piramban.browser, 
+        piramban.page, 
+        piramban.targetUrl, 
+        piramban.isClone, 
+        piramban.blogPost, 
+        piramban.path, 
+        piramban.firstPageId,
+        piramban.type
+      );
+      
+    }
+      
+    //close browsing
+    piramban.browser.close();
+    echo( "Browser closed." );
+    
+    return retSp;
+      
+  }
+</pre>
+
+<h4>Refers to:</h4>
+<ol>
+  <li>
+    <a 
+      href="async_pirambanHandler.html" 
+      title="async pirambanHandler( browser, objBlogPost, path, firstPageId, type )"
+    >
+      async pirambanHandler( browser, objBlogPost, path, firstPageId, type )
+    </a>
+  </li>
+  <li>
+    <a 
+      href="async_singlePage.html" 
+      title="async singlePage ( browser, page, targetUrl, isClone, objBlogPost, path, firstPageId, type )"
+    >
+      async singlePage( browser, page, targetUrl, isClone, blogPost, path, firstPageId, type )
+    </a>
+  </li>
+</ol>
+</body>
+</html>

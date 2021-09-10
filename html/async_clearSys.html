@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async clearSys( path )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async clearSys( path )</h3>
+
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_clearSys.png" 
+    name="async_clearSys" 
+    alt="async clearSys( path )"  
+    border="1"
+    width="998"
+    height="1087"
+    usemap="#map" 
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
+
+<map name="map">
+  <a title="">
+
+  </a>
+</map>
+
+<h4>Purpose</h4>
+<p>To delete working files.</p>
+
+<h4>Code</h4>
+<pre>
+  async clearSys( path ){
+    
+    /***************************/
+    /* To delete working files */
+    /***************************/
+    
+    echo( "# clearing working files start" );
+    
+    const files_to_delete = [
+      "/home/bisnis/node/id_image", 
+      `/home/bisnis/node/${path}/first_page_id`, 
+      `/home/bisnis/node/${path}/current_page_id`
+    ];
+    
+    let iterations = files_to_delete.length;
+    
+    await files_to_delete.loop(0, async function (i, file){ 
+      
+      await _FS.promises.unlink( file )
+        .then(
+          async ( resolved )=>{ return resolved }, 
+          async ( err )=>{  
+          
+            if( err && err.code == 'ENOENT' ){
+              echo( `# ${wfn}. ${file} does not exist` );
+              wfn++;
+              this.returnMessage = `# ${wfn}. ${file} does not exist`;
+              return false;
+            } else if( err ){
+              //console.log( "# error occured while trying remove file" );
+              this.returnMessage = "# error occured while trying remove file";
+              return false;
+            } else if( !err ){
+              //console.log( `# ${wfn}. ${file} removed` )
+              wfn++;
+              this.returnMessage = `# ${wfn}. ${file} removed`;
+              return true;
+            }
+          
+          } 
+        )
+        .catch( async ( err )=>{ echo( err ); } )
+        .finally( async ()=>{
+          this.clearSysEnd = true;
+        } )
+      
+      
+    }.bind( this ) );
+    
+    return this;
+
+  }
+</pre>
+
+<h4>Refers to:</h4>
+
+<ol>
+  <li>
+    <a
+      alt="Array.prototype.loop = async function( i = 0, callback )" 
+      href="array.prototype.loop.html" 
+    >
+      Array.prototype.loop = async function( i = 0, callback )
+    </a>
+  </li>
+
+async_workStatus.html
+
+</ol>
+
+</body>
+</html>

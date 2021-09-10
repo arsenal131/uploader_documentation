@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async singleFile( file, obj_n_to_upload )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+
+<h3 class="western" style="page-break-before: always">async singleFile( file, objNToUpload )</h3>
+
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img
+    src="image/async_singleFile.png" 
+    name="async_singleFile" 
+    alt="async singleFile( file, objNToUpload )" 
+    border="1" 
+    usemap="#map"
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
+
+<map name="map">
+  <a title="async handlingFile( obj, length, objNToUpload, type )">
+    <area 
+      shape="rect" 
+      coords="677,826,1138,868" 
+      alt="async handlingFile( obj, length, objNToUpload, type )" 
+      href="async_handlingFile.html" 
+    />
+  </a>
+  <a title="async handlingFile( obj, length, objNToUpload, type )">
+    <area 
+      shape="rect" 
+      coords="677,941,1147,983" 
+      alt="async handlingFile( obj, length, objNToUpload, type )" 
+      href="async_handlingFile.html" 
+    />
+  </a>
+</map>
+
+<h4>Code</h4>
+<pre>
+  async singleFile( file, objNToUpload ){
+
+    echo( "# commence handling single file" );
+
+    const _OBJ = JSON.parse( file );
+
+    var type = null;
+    var length = Object.values( _OBJ ).length;
+    
+    echo("posting length: ", length);
+  
+    if( length > 0 ){
+      
+      try{
+      
+        echo( `# ready to post ${length} ${obj[0].type}(s)` );
+      
+        echo( `# handling_${obj[0].type}` );
+        
+        type = obj[0].type;
+      
+      } catch{
+      
+        echo( "obj[0] :", obj.image[0].type );
+        
+        type = obj.image[0].type;
+      
+      }
+      
+      switch ( type ) {
+        case "text":
+        case "table":
+          await this.handlingFile( obj, length, objNToUpload, type );
+          break;
+        case "image":
+          await this.handlingFile( obj, length, objNToUpload, type );
+          break;
+        default:
+          echo( "singleFile method error: type variable is empty" );
+          return false;
+      }
+      
+    } else {
+      echo( "# singleFile methor error: length variable values false" );
+      return false;
+    }
+
+  }
+</pre>
+
+<h4>Refers to:</h4>
+<ol>
+  <li>
+    <p style="margin-bottom: 0in; line-height: 100%">
+      <a href="async_handlingFile.html" title="async handlingFile( obj, length, objNToUpload, type )">
+        async handlingFile( obj, length, objNToUpload, type )
+      </a>
+    </p>
+  </li>
+</ol>
+
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Chapter 1. Rationale</h1>
+
+<h2>Background</h2>
+<ul>
+  <li>There a need to have 1 million published posts in the client website within time range of 3 years.</li>
+  <li>1.000.000 / 3 = 333.334 posts annualy.</li>
+  <li>333.334 / 365 = 913.24 ~ 914 posts a day ~ 1000 posts a day.</li>
+  <li>Here, the objective is obvious, i.e., 1,000 published posts a day</li>
+  <li>Achieving 1000 published posts a day manually needs at least 100 bloggers/ content writers.</li>
+  <li>Monthly payment for a serious content writer is around IDR 3,000,000.</li>
+  <li>Hence, 100 x 3,000,000 = 300,000,000 monthly to manually publish 1000 posts monthly.</li>
+  <li>Client does not provide that amount of budget to achieve the objective</li>
+  <li>A possible solution to answer the challenge is a blogger bot, imitating a human blogger intelligence.</li>
+  <li>Research is required to create the blogger bot.</li>
+</ul>
+
+<h2>Problem formulation</h2>
+<p>How to compose and publish 1000 posts a day programmatically?</p>
+
+<h2>Objective</h2>
+<p>1,000 published posts in daily basis.</p>
+
+<h1>Chapter 2. How-to</h1>
+
+<h2>UML</h2>
+<ol>
+<li><a href="usecase_diagram.html">usecase diagram</a></li>
+<li><a href="object_class_diagram.html">object class diagram</a></li>
+</ol>
+
+<h2>Publisher bot</h2>
+<ol>
+<li>Algorithm flowchart</li>
+<li><a href="treeview_functions.html" title="class method treeview">Class method treeview</a></li>
+<li><a href="main.html" title="detailed flowchart">Detailed flowchart</a></li>
+</ol>
+
+<h4>Reason for blogger bot running on separated client:</h4>
+
+<p>This blogger bot system is AI-based at the core. Consequently, it will expectedly consume much computational resources. If it runs in the VPS (Virtual Private Server), it will heavily burden the server when it does AI stuffs, such as Data Mining (DM), Natural Language Processing (NLP), Deep-Learning-Based Genesis AI (Gen), etc. That heavy computational burden shall be moved to an individual client and the bot will be installed in that client, separated completely from VPS. The expected result is that any AI computational burden will have no effect on server at all. Because the bot does not run in the server, uploading content will use front-end interface, imposing lower security risk. Another benefit, all intermediary nodes will detect it as if human blogger while in fact it is a human-like software robot.</p>
+
+<footer style="text-align:center;">
+&copy;Copyright CodeFreaker<br>
+2021<br>
+All rights reserved<br>
+Made in Jawa - Indonesia
+</footer>
+</body>
+</html>

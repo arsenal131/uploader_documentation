@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async savePrettyLink( page, prettyLink )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async savePrettyLink( page, prettyLink )</h3>
+<h4>Flowchart</h4>
+<figure style="center">
+  <img 
+    src="image/async_savePrettyLink.png" 
+    name="async_savePrettyLink" 
+    alt="async savePrettyLink( page, prettyLink )" 
+    border="1" 
+    style="display:block; margin:0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
+<h4>Code</h4>
+<pre>
+  async savePrettyLink( page, prettyLink ){
+  
+      echo( "savePrettyLink method starts" );
+      
+      let savePrettyLinkToFile = await _FS.promises.appendFile( PATH_PRETTY_LINKS_FILE, prettyLink + "\n")
+        .then( 
+          async err => !err
+        );
+
+      echo( `link saved as ${PATH_PRETTY_LINKS_FILE}` );
+
+      return savePrettyLinkToFile;
+  }
+</pre>
+</body>
+</html>

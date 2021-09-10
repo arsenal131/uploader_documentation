@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async contentHandler()</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async contentHandler()</h3>
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_contentHandler.png"
+    name="async_contentHandler"
+    alt="async contentHandler()"
+    border="1"
+    width="1352"
+    height="1172"
+    usemap="#map"
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
+
+<map name="map">
+  <a title="async singleFile( file, objNToUpload )">
+    <area 
+      shape="rect" 
+      coords="648,855,1006,896" 
+      alt="async singleFile( file, objNToUpload )" 
+      href="async_singleFile.html" 
+    />
+  </a>
+  <a title="Array.prototype.loop">
+    <area 
+      shape="rect"
+      coords="1040,491,1119,532"
+      alt="Array.prototype.loop = async function( i = 0, callback )"
+      href="array.loop.html"
+    />
+  </a>
+</map>
+
+<h4>Code</h4>
+<pre>
+  async contentHandler(){
+  
+    var prom = new Promise( function( resolve, reject ){
+    
+      const obj = {};
+
+      obj.received = async function ( files ){
+        
+        var prme = new Promise( async function( receive, reject ){
+
+          let file_count = files.length;
+
+          files.loop( 0, async function( i, file ){
+        
+            echo( `# handling file #${i}\n` );
+            echo( `# obj_n_to_upload: ${obj_n_to_upload}` );
+          
+            echo( "file to handle: ", file );
+        
+            await this.single_file( file, obj_n_to_upload );
+        
+            echo( `# file_count: ${file_count}` );
+
+            if( i == file_count - 1 ){          
+              receive("next");
+            }
+
+      
+          }.bind( this ) );
+        
+        }.bind(this) );
+        
+        return prme;
+      
+      }.bind( this )
+       
+      obj.rejected = async function ( rejected ){
+        echo( rejected );
+        return rejected;
+      }
+
+      obj.unlinked = async function (){
+        let msg = "# unlink uploaded file";
+        echo( msg );
+        return msg;
+      }
+
+      resolve( obj );
+      
+    }.bind(this) );
+ 
+    return prms;
+ 
+  }
+  
+</pre>
+
+<h4>Refers to:</h4>
+<ol>
+  <li>
+    <a 
+      alt="async singleFile( file, objNToUpload )" 
+      href="async_singleFile.html"
+    >
+      async singleFile( file, objNToUpload )
+    </a>
+  </li>
+  <li>
+    <a 
+      alt="Array.prototype.loop = async function( i = 0, callback )" 
+      href="array.prototype.loop.html"
+    >
+      Array.prototype.loop = async function( i = 0, callback )
+    </a>
+  </li>	
+</ol>
+</body>
+</html>
+

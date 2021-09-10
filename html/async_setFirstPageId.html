@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+	<title>async setFirstPageId ( page, firstPageId )</title>
+	<style type="text/css">
+		@page { size: 11in 17in; margin-left: 0.5in; margin-right: 0.44in; margin-top: 0.79in; margin-bottom: 0.79in }
+		p { margin-bottom: 0.1in; line-height: 115%; background: transparent }
+		h3 { margin-top: 0.1in; margin-bottom: 0.08in; background: transparent; page-break-after: avoid }
+		h3.western { font-family: "Liberation Sans", sans-serif; font-size: 14pt; font-weight: bold }
+		h3.cjk { font-family: "Noto Sans CJK SC"; font-size: 14pt; font-weight: bold }
+		h3.ctl { font-family: "FreeSans"; font-size: 14pt; font-weight: bold }
+	</style>
+</head>
+<body lang="en-US" link="#000080" vlink="#800000" dir="ltr">
+<h3 class="western" style="page-break-before: always">async setFirstPageId ( page, firstPageId )</h3>
+<h4>Flowchart</h4>
+<figure style="align:center;">
+  <img 
+    src="image/async_setFirstPageId.png" 
+    name="async_setFirstPageId" 
+    alt="async setFirstPageId ( page, firstPageId )" 
+    border="1"
+    style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px 20px;"
+  />
+</figure>
+<h4>Code</h4>
+<pre>
+  async setFirstPageId ( page, firstPageId ){ //
+
+    echo( "setFirstPageId method starts" ); //
+
+    await page.evaluate( //
+    
+      async () => { //
+
+        const isSerialPost = document.querySelector( '#is_serial_post' );
+
+        if( !!isSerialPost ){ //
+
+          if( !isSerialPost.checked ){ //
+
+            isSerialPost.click();  //
+
+          }
+
+        }
+
+      }
+    
+    );
+
+    echo( `firstPageId: ${!!firstPageId}` ); //
+
+    if( !!firstPageId ){  //
+
+      echo( `firstPageId: ${ firstPageId }` ); //
+
+      echo( "focus on #serial_tag" );  //
+
+      await page.focus( '#serial_tag' );  //
+
+      echo( `pass firstPageId ${firstPageId} to #serial_tag` );  //
+
+      await page.keyboard.type( firstPageId );  //
+
+      return true;  //
+
+    } else if( !firstPageId ){  //
+
+      echo( "get firstPageId from #id_post" );  //
+
+      do{ //
+
+        firstPageId = await page.$eval( "#id_post", async el => el.value ); //
+
+        echo( 'firstPageId: ', firstPageId ); //
+
+        await page.waitForTimeout( 1000 ); //
+
+      }while( !firstPageId ); //
+
+      echo( `firstPageId: ${firstPageId}` ); //
+
+      echo( "focus on #serial_tag" ); //
+
+      await page.focus( '#serial_tag' );  //
+
+      echo( `pass firstPageId ${firstPageId} to #serial_tag` );
+
+      await page.keyboard.type( firstPageId );
+
+      return true;
+      
+    }
+    
+    return false;
+    
+  }
+</pre>
+</body>
+</html>
