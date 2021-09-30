@@ -40,12 +40,25 @@
 </map>
 <h4>Code</h4>
 <pre>
+
   async function handlingContent( context ){
 
     const chPromise =  await context.contentHandler()
       .then( 
         async ( resolved )=>{ return resolved }, 
         async ( rejected )=>{ return rejected } 
+      )
+      .catch(
+        async ( error )=>{
+          echo( error );
+          return error;
+        }
+      )
+      .finally(
+        async ()=>{
+          echo( "handlingContent method finished" );
+          return;
+        }
       );
       
     echo("retSwitcher: ", !!retSwitcher);
@@ -55,6 +68,7 @@
     return crs;
   
   }
+
 </pre>
 <h4>Refers to:</h4>
 <ol>

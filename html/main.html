@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -139,7 +139,7 @@ function main(){
     }
   
     const retWorkStatus = await bb.workStatus().then( async (resolved)=>{ return resolved; } );
-  
+
     echo( colorRet, `# retWorkStatus: ${!!retWorkStatus}`, "\x1b[0m" );
 
     echo( colorRet, "# retWorkStatus.res: ", retWorkStatus.res, "\x1b[0m" );
@@ -192,10 +192,6 @@ function main(){
   } );
 
 }
-
-main();
-
-
 
 main();
 

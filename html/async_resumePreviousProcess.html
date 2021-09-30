@@ -22,8 +22,6 @@
     src="image/async_resumePreviousProcess.png" 
     name="async_resumePreviousProcess" 
     alt="async function resumePreviousProcess( path )"
-    width="863" 
-    height="1982" 
     border="1" 
     usemap="#map" 
     style="display:block; margin: 0 auto 0 auto; padding: 20px 20px 20px;"
@@ -67,43 +65,49 @@
 
 <h4>Code</h4>
 <pre>
-  async resume_previous_process( path ){
+  async resumePreviousProcess( path ){
   
-    echo( "# resume_previous_process starts" );
+    echo( "# resumePreviousProcess starts" );
     
-    var arrs_resolved, last_upload = null;
+    var arrsResolved, lastUpload = null;
     
     try{
     
-      const log_upload = await this.read_file( PATH_UPLOADED );
+      const logUpload = await this.readFile( PATH_UPLOADED );
      
-      if( !!log_upload ){
-        arrs_resolved = log_upload.split( "\n" );
-        last_upload = JSON.parse( arrs_resolved.filter( n => n ).reverse( )[0] );
-        echo( "# last_upload: ", last_upload.length );
+      if( !!logUpload ){
+        arrsResolved = logUpload.split( "\n" );
+        lastUpload = JSON.parse( arrsResolved.filter( n => n ).reverse( )[0] );
+        echo( "# lastUpload: ", lastUpload.length );
         
         try{
-          echo( `# recorded last_upload: ${last_upload.last_record}` );
-          const pafl= await this.promise_all_files( path, last_upload.last_record );
+          echo( `# recorded lastUpload: ${lastUpload.last_record}` );
+          const pafl= await this.promiseAllFiles( path, lastUpload.lastRecord );
           return pafl;
         } catch {
-          echo( "# last_upload file is empty" );
-          const pafs = await this.promise_all_files( path );
+          echo( "# lastUpload file is empty" );
+          const pafs = await this.promiseAllFiles( path );
           return pafs;
         }
       
       } else if( !log_upload ){
         echo( `# empty file at ${ PATH_UPLOADED }` );
-        echo( "# promise_all_files start from 0" );
-        const praf = await this.promise_all_files( path );
+        echo( "# promiseAllFiles start from 0" );
+        const praf = await this.promiseAllFiles( path );
         return praf;
       }
     } catch{
       echo( `# file not found. ` );
-      echo( `# error at resume_previous_process method` )
+      echo( `# error at resumePreviousProcess method` );
     }
     
   }
+</pre>
+
+<h4>Example:</h4>
+<pre>
+let path = "retrospective_0";
+let ret = await this.resumePreviousProcess( path )
 </pre>
 
 <h4>Refers to:</h4>

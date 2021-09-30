@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -68,6 +68,27 @@ It dictates new work flow or continuation of previous work flow.
     return this;
     
   }
+</pre>
+
+<h4>Example</h4>
+
+<h5 style="font-size:12pt; color:green;">Script</h5>
+
+<pre style="background-color:rgb(200,200,200); margin-left:50px; width:800px;">
+    const retWorkStatus = await bb.workStatus().then( async (resolved)=>{ return resolved; } );
+    echo( retWorkStatus );
+</pre>
+
+<h5 style="font-size:12pt; color:green;">Return</h5>
+<pre style="background-color:rgb(200,200,200); margin-left:50px; width:800px;">
+botBlog {
+  name: 'botBlog',
+  creator: 'Coding Freak',
+  clearSysEnd: true,
+  introduction: '\nHi! I am botBlog. My creator, Coding Freak , created me.\n',
+  returnMessage: '# 4. /home/bisnis/node/retrospective_0/currentPageId does not exist',
+  res: 'on-going'
+}
 </pre>
 </body>
 </html>

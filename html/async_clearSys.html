@@ -30,9 +30,7 @@
 </figure>
 
 <map name="map">
-  <a title="">
-
-  </a>
+  <a title=""></a>
 </map>
 
 <h4>Purpose</h4>
@@ -48,15 +46,15 @@
     
     echo( "# clearing working files start" );
     
-    const files_to_delete = [
+    const filesToDelete = [
       "/home/bisnis/node/id_image", 
       `/home/bisnis/node/${path}/first_page_id`, 
       `/home/bisnis/node/${path}/current_page_id`
     ];
     
-    let iterations = files_to_delete.length;
+    let iterations = filesToDelete.length;
     
-    await files_to_delete.loop(0, async function (i, file){ 
+    await filesToDelete.loop(0, async function (i, file){ 
       
       await _FS.promises.unlink( file )
         .then(
@@ -69,11 +67,9 @@
               this.returnMessage = `# ${wfn}. ${file} does not exist`;
               return false;
             } else if( err ){
-              //console.log( "# error occured while trying remove file" );
               this.returnMessage = "# error occured while trying remove file";
               return false;
             } else if( !err ){
-              //console.log( `# ${wfn}. ${file} removed` )
               wfn++;
               this.returnMessage = `# ${wfn}. ${file} removed`;
               return true;
@@ -94,21 +90,25 @@
   }
 </pre>
 
-<h4>Refers to:</h4>
+<h4>Example</h4>
 
-<ol>
-  <li>
-    <a
-      alt="Array.prototype.loop = async function( i = 0, callback )" 
-      href="array.prototype.loop.html" 
-    >
-      Array.prototype.loop = async function( i = 0, callback )
-    </a>
-  </li>
+<h5 style="font-size:12pt; color:green;">Script</h5>
+<pre style="background-color:rgb(200,200,200); margin-left:50px; width:800px;">
+  path = "retrospective_0";
+  const retClearSys = await bb.clearSys( path ).then( async resolved => { return resolved } );  
+  echo( retClearSys );
+</pre>
 
-async_workStatus.html
-
-</ol>
+<h5 style="font-size:12pt; color:green;">Return</h5>
+<pre style="background-color:rgb(200,200,200); margin-left:50px; width:800px;">
+botBlog {
+  name: 'botBlog',
+  creator: 'Coding Freak',
+  clearSysEnd: true,
+  introduction: '\nHi! I am botBlog. My creator, Coding Freak , created me.\n',
+  returnMessage: '# 4. /home/bisnis/node/retrospective_0/currentPageId does not exist'
+}
+</pre>
 
 </body>
 </html>

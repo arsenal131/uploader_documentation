@@ -46,7 +46,154 @@
 
 <h4>Code</h4>
 <pre>
+  async uploadImage ( targetFile, page, content ){
+    
+    var idImage = null;
 
+    await this.goToImgUploaderPage( page );
+      
+    let imgTitleNode = await this.checkNodeAvailability( page, "#img_title" );
+
+    echo( "imgTitleNode: ", !!imgTitleNode ); //
+    
+    if( !imgTitleNode ){
+      
+      echo( "imgTitleNode not found" );
+        
+      return;
+        
+    }
+    
+    let inputFileNode = await this.checkNodeAvailability( page, 'input[type="file"]' );
+      
+    echo( "inputFileNode: ", !!inputFileNode );
+      
+    if( !imgTitleNode ){
+      
+      echo( "inputFileNode not found" );
+        
+      return;
+        
+    }
+        
+    const imgHandler = await page.$( 'input[type="file"]' );
+    
+    echo( "uploading image file" );
+          
+    let retUploading = await imgHandler.uploadFile( target_file )
+      .then( 
+        async ( resolved )=>{
+          return true;
+        },
+        async ( rejected )=>{
+          return false;
+        }
+      )
+      .catch( 
+        async ( err ) => {
+          return false;
+        }
+      )
+      .finally(
+        async ()=>{
+          echo( "uploadFile completed" );
+        }
+      )
+        
+    echo( "uploading returned : ", retUploading );
+          
+    await page.waitForTimeout( 10000 );
+        
+    await page.waitForSelector( "#id_image", { timeout:20000 } );   
+    
+    do{
+      
+      idImage = await page.$eval( "#id_image", el => el.value );
+        
+    } while( !idImage );
+    
+    echo( "idImage: ", idImage );
+      
+    // check if file exists
+    echo( "checking if file idImage exists" );
+      
+    var retFsStat = await _FS.stat("idImage", async ( err, stat )=>{ return ( !err ) ? true : false; } );
+      
+    if( !!retFsStat ){
+      echo( "target file exists" );
+        
+      echo( "clear file id_image" );
+      let isEmpty = await _FS.truncate( "idImage", 0, async ( err, bytes )=>{
+        return (( !err ) ? true : false);
+      } );
+        
+      echo( "if clearing file failed, stop." );
+      if( !isEmpty ){
+        echo( "emptying file failed" );
+        return;
+      }
+        
+      echo( "store idImage to file" );
+      let storeIdImage = await _FS.writeFile( "idImage", idImage, async ( err )=>{
+          return (( !err ) ? 1 : 0 );
+      } );
+      echo( "storeIdImage: ", storeIdImage );
+        
+    } else if( !retFsStat ){
+      echo( "target file does not exist" );
+      echo( "create file id_image and save data" );
+      let saveIdImage = await _FS.writeFile( "idImage", idImage, async ( err )=>{
+        return (( !err ) ? 1 : 0);
+      } );
+      echo( "saveIdImage to file: ", saveIdImage );
+    }
+      
+    echo( "\nSET IMAGE TITLE\n" );
+      
+    echo( "focus on element #img_title" );
+    await page.focus( "#img_title" );
+      
+    echo( "empty value of input element #img_title" );
+    await page.evaluate( async ()=>{ document.querySelector( "#img_title" ).value="" } );
+      
+    echo( "type image title" );
+    await page.keyboard.type( content );
+      
+    echo( "\nSET IMAGE DESCRIPTION\n" );
+      
+    echo( "focus on element #img_description" );
+    await page.focus( "#img_description" );
+      
+    echo( "empty value of element #img_description" );
+    await page.evaluate( async ()=>{ document.querySelector( "#img_description" ).value="" } );
+    
+    echo( "type content" );
+    await page.keyboard.type( content );
+      
+    echo( "\nSET IMAGE ALTERNATE\n" );
+      
+    echo( "focus on element #img_alt" );
+    await page.focus( "#img_alt" );
+    
+    echo( "empty value of element #img_alt" );
+    await page.evaluate( async ()=>{ document.querySelector( "#img_alt" ).value="" } );
+      
+    echo( "type image alternate" );
+    await page.keyboard.type( content );
+    
+    echo( "click button #btn_img_attr to save image data" );
+    await page.click( "#btn_img_attr" );
+      
+    let response = await page.waitForResponse( async ( response ) => { return response } );
+     
+    if( response.status() == 200 && response.url().includes( _IMG_IDX )  ){
+      echo( "uploading success" );
+      echo( "finish uploading image" );
+    }
+
+    return idImage;
+
+  }
 </pre>
 
 <h4>Refers to:</h4>

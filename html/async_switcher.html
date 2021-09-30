@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
@@ -56,12 +56,12 @@
     switch( data ){
       case "on-going":
         echo( "# resume previous process" );
-        ret = await this.resume_previous_process( path );
+        ret = await this.resumePreviousProcess( path );
         return ret;
         break;
       case "finish":
-        echo( "# previous process finished, start new process" );
-        ret = await this.promise_all_files( path );
+        echo( "# start new process" );
+        ret = await this.promiseAllFiles( path );
         return ret;
         break;
       default:
@@ -73,15 +73,20 @@
   }
 </pre>
 
+<h4>Example</h4>
+<pre>
+const retSwitcher = await bb.switcher( "on-going" )
+</pre>
+
 <h4>Refers to:</h4>
 <ol>
 	<li>
-	    <a href="async_resume_previous_process.html" title="async resume_previous_process( path )">
-	      async resumePrevious_process( path )
+	    <a href="async_resumePreviousProcess.html" title="async resumePreviousProcess( path )">
+	      async resumePreviousProcess( path )
 	    </a>
 	</li>
 	<li>
-	    <a href="async_promise_all_files.html" title="async promise_all_files( path, recorded_last_upload = 0 )">
+	    <a href="async_promiseAllFiles.html" title="async promiseAllFiles( path, recordedLastUpload = 0 )">
 	      async promiseAllFiles( path )
 	    </a>
 	</li>
